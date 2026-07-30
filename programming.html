@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💻 プログラミング体験 | EC業務テーマ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --green: #10B981;
+  --green-light: #D1FAE5;
+  --green-dark: #059669;
+  --navy: #0F172A;
+  --navy-mid: #1E293B;
+  --navy-soft: #334155;
+  --gray-100: #F8FAFC;
+  --gray-200: #F1F5F9;
+  --gray-300: #E2E8F0;
+  --gray-400: #CBD5E1;
+  --gray-500: #94A3B8;
+  --gray-600: #64748B;
+  --gray-700: #475569;
+  --text: #0F172A;
+  --text-soft: #475569;
+  --white: #FFFFFF;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(15,23,42,0.08), 0 4px 16px rgba(15,23,42,0.06);
+  --shadow-md: 0 4px 24px rgba(15,23,42,0.10);
+  --font: 'Inter', 'Noto Sans JP', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: var(--font); border: none; outline: none; }
+button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* ─── SCREEN SYSTEM ─────────────────────────────── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ─── SHARED HEADER ─────────────────────────────── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-logo {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.site-logo span { color: var(--green); }
+.header-nav { display: flex; gap: 0.5rem; }
+.nav-btn {
+  background: none;
+  color: var(--gray-600);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+  font-weight: 500;
+}
+.nav-btn:hover { background: var(--gray-200); color: var(--navy); }
+.nav-btn.active { background: var(--green-light); color: var(--green-dark); }
+
+/* ─── BUTTONS ───────────────────────────────────── */
+.btn-primary {
+  background: var(--green);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-primary:hover { background: var(--green-dark); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-secondary {
+  background: var(--white);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--gray-300);
+  transition: border-color 0.15s, background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-secondary:hover { border-color: var(--green); background: var(--green-light); }
+.btn-ghost {
+  background: none;
+  color: var(--green-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--green);
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-ghost:hover { background: var(--green-light); }
+
+/* ─── SCREEN 0: LANDING ──────────────────────────── */
+#screen0 {
+  background: var(--white);
+}
+.landing-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2e4a 60%, #0a3d2e 100%);
+  color: var(--white);
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.landing-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.landing-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 10%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(16,185,129,0.10) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16,185,129,0.15);
+  border: 1px solid rgba(16,185,129,0.3);
+  color: #6EE7B7;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.hero-title .accent { color: #6EE7B7; }
+.hero-sub {
+  font-size: 1.1rem;
+  color: #94A3B8;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.hero-actions .btn-primary {
+  background: var(--green);
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+}
+.hero-actions .btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,0.3);
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+}
+.hero-actions .btn-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.6);
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 3.5rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.feature-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+.feature-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.feature-card p { font-size: 0.875rem; color: var(--text-soft); line-height: 1.6; }
+
+.landing-stats {
+  background: var(--gray-100);
+  border-top: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--gray-300);
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+}
+.stat-label { font-size: 0.8rem; color: var(--gray-600); font-weight: 500; }
+
+/* ─── SCREEN 1: TUTORIAL ─────────────────────────── */
+#screen1 { background: var(--gray-100); }
+.tutorial-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  gap: 1.5rem;
+  align-items: start;
+}
+.tutorial-sidebar {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: sticky;
+  top: 72px;
+}
+.sidebar-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 1rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.2rem;
+  font-size: 0.875rem;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--gray-200);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-weight: 500;
+}
+.sidebar-nav-item:last-child { border-bottom: none; }
+.sidebar-nav-item:hover { background: var(--gray-100); color: var(--navy); }
+.sidebar-nav-item.active {
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+.sidebar-nav-item .item-num {
+  width: 20px; height: 20px;
+  background: var(--gray-300);
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--gray-600);
+}
+.sidebar-nav-item.active .item-num {
+  background: var(--green);
+  color: var(--white);
+}
+
+.tutorial-content {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+.tutorial-tab { display: none; }
+.tutorial-tab.active { display: block; }
+
+.tab-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+.tab-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+.tab-desc {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.code-block-wrap {
+  background: var(--navy);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--navy-mid);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gray-400);
+}
+.copy-btn {
+  background: rgba(255,255,255,0.08);
+  color: var(--gray-400);
+  font-size: 0.72rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  font-weight: 600;
+}
+.copy-btn:hover { background: var(--green); color: var(--white); }
+.code-block {
+  padding: 1.2rem 1.2rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #E2E8F0;
+  overflow-x: auto;
+  white-space: pre;
+}
+.code-block .kw { color: #F472B6; }
+.code-block .fn { color: #60A5FA; }
+.code-block .str { color: #86EFAC; }
+.code-block .cm { color: #64748B; }
+.code-block .num { color: #FCD34D; }
+.paiza-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(16,185,129,0.3);
+  transition: background 0.15s;
+}
+.paiza-link-btn:hover { background: #A7F3D0; }
+.info-box {
+  background: var(--gray-100);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.875rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.info-box strong { color: var(--navy); }
+
+/* Tutorial example blocks */
+.guide-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  background: var(--green-light);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 1rem;
+  margin-bottom: 1rem;
+}
+.example-section {
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.example-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.example-col {
+  flex: 1;
+  min-width: 0;
+}
+.example-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.example-block {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  white-space: pre;
+  overflow-x: auto;
+}
+.input-example-block {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1E40AF;
+}
+.output-example-block {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #166534;
+}
+.guide-tip {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.9rem;
+}
+
+/* ─── SCREEN 2: PROBLEM LIST ─────────────────────── */
+#screen2 { background: var(--gray-100); }
+.screen2-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  width: 100%;
+}
+.page-title-row {
+  margin-bottom: 2rem;
+}
+.page-title-row h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.3rem;
+}
+.page-title-row p { color: var(--text-soft); font-size: 0.9rem; }
+
+.level-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.2rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.level-card:hover { box-shadow: var(--shadow-md); }
+.level-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.4rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+.level-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--navy);
+}
+.level-count {
+  font-size: 0.78rem;
+  color: var(--gray-600);
+  background: var(--gray-200);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.level-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--green-dark);
+  font-weight: 600;
+}
+.level-problems { padding: 0.5rem 0; }
+.problem-row {
+  display: flex;
+  align-items: center;
+  padding: 0.65rem 1.4rem;
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.15s;
+  gap: 0.7rem;
+}
+.problem-row:last-child { border-bottom: none; }
+.problem-row:hover { background: var(--gray-50); }
+.problem-status-icon {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  background: var(--gray-200);
+  color: var(--gray-500);
+  font-weight: 700;
+}
+.problem-status-icon.correct { background: var(--green-light); color: var(--green-dark); }
+.problem-status-icon.wrong { background: #FEE2E2; color: #DC2626; }
+.problem-row-title {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+.problem-row-num {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 600;
+  min-width: 28px;
+}
+.level-card-footer {
+  padding: 0.8rem 1.4rem;
+  background: var(--gray-100);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ─── SCREEN 3: PROBLEM ──────────────────────────── */
+#screen3 { background: var(--gray-100); }
+.problem-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  flex: 1;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  align-items: start;
+}
+.problem-sidebar {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: sticky;
+  top: 72px;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.ps-level-section { border-bottom: 1px solid var(--gray-200); }
+.ps-level-label {
+  padding: 0.6rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--gray-100);
+}
+.ps-problem-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.12s;
+  font-weight: 500;
+}
+.ps-problem-item:hover { background: var(--gray-50); }
+.ps-problem-item.active { background: var(--green-light); color: var(--green-dark); font-weight: 600; }
+.ps-icon {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  font-size: 0.6rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--gray-500);
+}
+.ps-icon.correct { background: var(--green); color: var(--white); }
+.ps-icon.wrong { background: #EF4444; color: var(--white); }
+
+.problem-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.problem-progress-bar-wrap {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  padding: 1rem 1.4rem;
+  box-shadow: var(--shadow);
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  font-size: 0.82rem;
+}
+.progress-meta-left { color: var(--navy); font-weight: 600; }
+.progress-meta-right { color: var(--gray-600); }
+.progress-bar-track {
+  height: 6px;
+  background: var(--gray-200);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.problem-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.problem-card-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 1.2rem 1.5rem;
+}
+.problem-level-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6EE7B7;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+.problem-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.problem-body { padding: 1.5rem; }
+.problem-section { margin-bottom: 1.4rem; }
+.problem-section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+.problem-text { font-size: 0.9rem; color: var(--text-soft); line-height: 1.8; }
+.sample-box {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: var(--navy);
+  white-space: pre;
+}
+.sample-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+@media (max-width: 600px) { .sample-pair { grid-template-columns: 1fr; } }
+
+.answer-area {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+.answer-area h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.answer-textarea {
+  width: 100%;
+  min-height: 100px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  resize: vertical;
+  color: var(--navy);
+  transition: border-color 0.15s;
+  background: var(--gray-100);
+}
+.answer-textarea:focus { outline: none; border-color: var(--green); background: var(--white); }
+.answer-textarea.correct-input { border-color: var(--green); background: #F0FDF4; }
+.answer-textarea.wrong-input { border-color: #EF4444; background: #FFF5F5; }
+.answer-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.paiza-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+.paiza-open-btn:hover { background: var(--navy-mid); }
+
+.verdict-box {
+  display: none;
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.2rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+.verdict-box.show { display: flex; }
+.verdict-box.correct { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
+.verdict-box.wrong { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+
+.toggle-section {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.toggle-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.4rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.toggle-header:hover { background: var(--gray-50); }
+.toggle-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.toggle-arrow {
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  transition: transform 0.2s;
+}
+.toggle-arrow.open { transform: rotate(180deg); }
+.toggle-body {
+  display: none;
+  padding: 1rem 1.4rem 1.4rem;
+  border-top: 1px solid var(--gray-200);
+  font-size: 0.875rem;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+.toggle-body.open { display: block; }
+
+/* ─── LANGUAGE EDITOR TABS ───────────────────────── */
+.lang-editor-wrap {
+  background: #0F172A;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #1E293B;
+}
+.lang-tabs {
+  display: flex;
+  background: #1E293B;
+  border-bottom: 1px solid #334155;
+  overflow-x: auto;
+}
+.lang-tab-btn {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #94A3B8;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  letter-spacing: 0.02em;
+}
+.lang-tab-btn:hover { color: #E2E8F0; background: rgba(255,255,255,0.04); }
+.lang-tab-btn.active {
+  color: #10B981;
+  border-bottom-color: #10B981;
+  background: rgba(16,185,129,0.08);
+}
+.lang-tab-content { display: none; }
+.lang-tab-content.active { display: block; }
+.lang-code-wrap { background: #0F172A; }
+.lang-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  background: #1a2844;
+  border-bottom: 1px solid #1E293B;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+}
+.lang-code-header .copy-btn {
+  background: rgba(255,255,255,0.07);
+  color: #94A3B8;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
+}
+.lang-code-header .copy-btn:hover { background: #10B981; color: #fff; }
+.lang-code-block {
+  padding: 1.2rem 1.3rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: #E2E8F0;
+  overflow-x: auto;
+  white-space: pre;
+  min-height: 80px;
+}
+
+.problem-nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .tutorial-layout { grid-template-columns: 1fr; }
+  .tutorial-sidebar { position: static; }
+  .problem-layout { grid-template-columns: 1fr; }
+  .problem-sidebar { position: static; max-height: none; }
+}
+@media (max-width: 480px) {
+  .landing-stats { gap: 2rem; }
+  .site-header { padding: 0 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 0: LANDING
+══════════════════════════════════════════ -->
+<div id="screen0" class="screen active">
+  <header class="site-header">
+    <div class="site-logo">💻 <span>EC</span>プログラミング</div>
+    <nav class="header-nav">
+      <button class="nav-btn" onclick="showScreen(1)">チュートリアル</button>
+      <button class="nav-btn" onclick="showScreen(2)">問題一覧</button>
+    </nav>
+  </header>
+
+  <div class="landing-hero">
+    <div class="hero-eyebrow">🛒 EC業務テーマ × Eラーニング</div>
+    <h1 class="hero-title">
+      💻 プログラミング<span class="accent">体験</span>
+    </h1>
+    <p class="hero-sub">ECサイト運営の課題をコードで解決しよう。<br>言語は自由、Paiza.io でコードを書いてすぐ提出。</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showScreen(1)">📖 チュートリアルから始める</button>
+      <button class="btn-secondary" onclick="showScreen(2)">問題に挑戦する →</button>
+    </div>
+  </div>
+
+  <div class="landing-stats">
+    <div class="stat-item">
+      <span class="stat-num">10</span>
+      <span class="stat-label">問題数</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4</span>
+      <span class="stat-label">レベル</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">対応言語</span>
+    </div>
+  </div>
+
+  <div class="landing-features">
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>EC業務テーマ</h3>
+      <p>注文金額・在庫管理・売上ランキングなど、ECサイト運営に直結する実践的な問題を出題。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>言語自由</h3>
+      <p>Python・JavaScript・Java など好きな言語で挑戦。Paiza.io でブラウザから実行できます。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✅</div>
+      <h3>即時フィードバック</h3>
+      <p>出力を貼り付けるだけで即座に正誤判定。解説とPython模範解答で理解を深められます。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 1: TUTORIAL
+══════════════════════════════════════════ -->
+<div id="screen1" class="screen">
+  <header class="site-header">
+    <div class="site-logo">💻 <span>EC</span>プログラミング</div>
+    <nav class="header-nav">
+      <button class="nav-btn active" onclick="showScreen(1)">チュートリアル</button>
+      <button class="nav-btn" onclick="showScreen(2)">問題一覧</button>
+    </nav>
+  </header>
+
+  <div class="tutorial-layout">
+    <aside class="tutorial-sidebar">
+      <div class="sidebar-header">Python 基礎</div>
+      <div class="sidebar-nav-item active" onclick="showTutorialTab(0, this)">
+        <span class="item-num">1</span> 標準入出力
+      </div>
+      <div class="sidebar-nav-item" onclick="showTutorialTab(1, this)">
+        <span class="item-num">2</span> 四則演算
+      </div>
+      <div class="sidebar-nav-item" onclick="showTutorialTab(2, this)">
+        <span class="item-num">3</span> if文
+      </div>
+      <div class="sidebar-nav-item" onclick="showTutorialTab(3, this)">
+        <span class="item-num">4</span> for文
+      </div>
+    </aside>
+
+    <div class="tutorial-content">
+      <!-- TAB 0: 標準入出力 -->
+      <div class="tutorial-tab active" id="tab0">
+        <div class="tab-eyebrow">基礎 01</div>
+        <h2 class="tab-title">標準入力・標準出力</h2>
+        <p class="tab-desc">競技プログラミングでは、キーボードからデータを受け取り（標準入力）、画面に結果を出力（標準出力）します。Pythonでは <code>input()</code> と <code>print()</code> を使います。</p>
+        <div class="info-box"><strong>input()</strong> は1行分の文字列を読み込みます。数値として使うには <strong>int()</strong> で整数に変換する必要があります。</div>
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+          </div>
+          <div class="code-block"><span class="cm"># 1行読み込んで表示</span>
+s = <span class="fn">input</span>()
+<span class="fn">print</span>(s)
+
+<span class="cm"># 整数として読み込む</span>
+n = <span class="kw">int</span>(<span class="fn">input</span>())
+<span class="fn">print</span>(n + <span class="num">1</span>)
+
+<span class="cm"># EC例: 商品名を読み込んで出力</span>
+name = <span class="fn">input</span>()
+<span class="fn">print</span>(<span class="str">"商品名:"</span>, name)</div>
+        </div>
+        <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
+        <div class="example-section">
+          <div class="example-row">
+            <div class="example-col">
+              <div class="example-label">入力例</div>
+              <div class="example-block input-example-block">ダイアモンドヘッド
+1
+ホワイトTシャツ</div>
+            </div>
+            <div class="example-col">
+              <div class="example-label">期待される出力</div>
+              <div class="example-block output-example-block">ダイアモンドヘッド
+2
+商品名: ホワイトTシャツ</div>
+            </div>
+          </div>
+          <div class="guide-tip">💡 入力する数字や文字を変えて試してみよう！</div>
+        </div>
+        <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
+      </div>
+
+      <!-- TAB 1: 四則演算 -->
+      <div class="tutorial-tab" id="tab1">
+        <div class="tab-eyebrow">基礎 02</div>
+        <h2 class="tab-title">四則演算</h2>
+        <p class="tab-desc">Pythonの演算子を使って数値を計算できます。ECサイトでは単価×数量や割引計算など、算術演算を多用します。</p>
+        <div class="info-box">
+          <strong>+</strong> 加算 &nbsp;|&nbsp; <strong>-</strong> 減算 &nbsp;|&nbsp; <strong>*</strong> 乗算 &nbsp;|&nbsp; <strong>/</strong> 除算（小数）&nbsp;|&nbsp; <strong>//</strong> 整数除算 &nbsp;|&nbsp; <strong>%</strong> 余り &nbsp;|&nbsp; <strong>**</strong> べき乗
+        </div>
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+          </div>
+          <div class="code-block"><span class="cm"># EC例: 単価×個数で合計金額を計算</span>
+price = <span class="num">1500</span>
+quantity = <span class="num">3</span>
+total = price * quantity
+<span class="fn">print</span>(total)
+
+<span class="cm"># 10%割引後（切り捨て）</span>
+discounted = <span class="kw">int</span>(total * <span class="num">0.9</span>)
+<span class="fn">print</span>(discounted)
+
+<span class="cm"># 17個の商品を5個入り箱に詰めると？</span>
+items = <span class="num">17</span>
+boxes = items // <span class="num">5</span>
+rest  = items  % <span class="num">5</span>
+<span class="fn">print</span>(boxes, rest)</div>
+        </div>
+        <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
+        <div class="example-section">
+          <div class="example-row">
+            <div class="example-col">
+              <div class="example-label">入力例</div>
+              <div class="example-block input-example-block">（入力なし）</div>
+            </div>
+            <div class="example-col">
+              <div class="example-label">期待される出力</div>
+              <div class="example-block output-example-block">4500
+4050
+3 2</div>
+            </div>
+          </div>
+          <div class="guide-tip">💡 price や quantity、items の数値を変えて試してみよう！</div>
+        </div>
+        <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
+      </div>
+
+      <!-- TAB 2: if文 -->
+      <div class="tutorial-tab" id="tab2">
+        <div class="tab-eyebrow">基礎 03</div>
+        <h2 class="tab-title">if文</h2>
+        <p class="tab-desc">条件によって処理を分岐させるには <code>if</code> 文を使います。ECでは「在庫あり/なし」「送料無料/あり」など、条件判定が多く登場します。</p>
+        <div class="info-box">インデント（スペース4つ）が重要です。Pythonではブロックをインデントで表現します。</div>
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+          </div>
+          <div class="code-block"><span class="cm"># EC例: 在庫数を読み込んでステータスを表示</span>
+stock = <span class="kw">int</span>(<span class="fn">input</span>())
+
+<span class="kw">if</span> stock &gt;= <span class="num">10</span>:
+    <span class="fn">print</span>(<span class="str">"在庫十分"</span>)
+<span class="kw">elif</span> stock &gt; <span class="num">0</span>:
+    <span class="fn">print</span>(<span class="str">"残りわずか"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"在庫なし"</span>)
+
+<span class="cm"># 送料無料判定</span>
+total = <span class="kw">int</span>(<span class="fn">input</span>())
+<span class="kw">if</span> total &gt;= <span class="num">5000</span>:
+    <span class="fn">print</span>(<span class="str">"送料無料"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"送料あり"</span>)</div>
+        </div>
+        <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
+        <div class="example-section">
+          <div class="example-row">
+            <div class="example-col">
+              <div class="example-label">入力例</div>
+              <div class="example-block input-example-block">3
+6800</div>
+            </div>
+            <div class="example-col">
+              <div class="example-label">期待される出力</div>
+              <div class="example-block output-example-block">残りわずか
+送料無料</div>
+            </div>
+          </div>
+          <div class="guide-tip">💡 在庫を 0、3、15 に変えたり、金額を 3000 にしたら結果はどう変わる？</div>
+        </div>
+        <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
+      </div>
+
+      <!-- TAB 3: for文 -->
+      <div class="tutorial-tab" id="tab3">
+        <div class="tab-eyebrow">基礎 04</div>
+        <h2 class="tab-title">for文</h2>
+        <p class="tab-desc">繰り返し処理には <code>for</code> 文を使います。複数商品の合計計算や、リスト全体への処理に欠かせません。</p>
+        <div class="info-box"><strong>range(n)</strong> は 0, 1, 2, … n-1 の数列を生成します。入力をN行読み込む場合によく使います。</div>
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+          </div>
+          <div class="code-block"><span class="cm"># EC例: N個の商品価格を読み込んで合計を出力</span>
+n = <span class="kw">int</span>(<span class="fn">input</span>())
+total = <span class="num">0</span>
+
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
+    price = <span class="kw">int</span>(<span class="fn">input</span>())
+    total += price
+
+<span class="fn">print</span>(<span class="str">"合計:"</span>, total)</div>
+        </div>
+        <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
+        <div class="example-section">
+          <div class="example-row">
+            <div class="example-col">
+              <div class="example-label">入力例</div>
+              <div class="example-block input-example-block">5
+1200
+3500
+800
+2100
+500</div>
+            </div>
+            <div class="example-col">
+              <div class="example-label">期待される出力</div>
+              <div class="example-block output-example-block">合計: 8100</div>
+            </div>
+          </div>
+          <div class="guide-tip">💡 商品数を増やしたり、金額を変えて合計がいくつになるか試してみよう！</div>
+        </div>
+        <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 2: PROBLEM LIST
+══════════════════════════════════════════ -->
+<div id="screen2" class="screen">
+  <header class="site-header">
+    <div class="site-logo">💻 <span>EC</span>プログラミング</div>
+    <nav class="header-nav">
+      <button class="nav-btn" onclick="showScreen(1)">チュートリアル</button>
+      <button class="nav-btn active" onclick="showScreen(2)">問題一覧</button>
+    </nav>
+  </header>
+  <div class="screen2-inner">
+    <div class="page-title-row">
+      <h2>📋 問題一覧</h2>
+      <p>挑戦したいレベルを選んで問題に挑戦しましょう</p>
+    </div>
+    <div id="levelCards"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCREEN 3: PROBLEM
+══════════════════════════════════════════ -->
+<div id="screen3" class="screen">
+  <header class="site-header">
+    <div class="site-logo">💻 <span>EC</span>プログラミング</div>
+    <nav class="header-nav">
+      <button class="nav-btn" onclick="showScreen(2)">← 問題一覧</button>
+
+    </nav>
+  </header>
+  <div class="problem-layout">
+    <aside class="problem-sidebar" id="problemSidebar"></aside>
+    <div class="problem-main" id="problemMain"></div>
+  </div>
+</div>
+
+
+<script>
+'use strict';
+
+/* ─── PROBLEM DATA ─────────────────────────────── */
+const LEVELS = [
+  { id: 'beginner',   label: '🌱 初心者向け',         color: '#10B981' },
+  { id: 'middle',     label: '🌿 中級者向け',         color: '#3B82F6' },
+  { id: 'regular',    label: '💼 正社員向け',          color: '#8B5CF6' },
+  { id: 'veteran',    label: '🔥 ベテラン社員向け',    color: '#F59E0B' }
+];
+
+const PROBLEMS = [
+  {
+    id: 1, level: 'beginner',
+    title: '注文金額の計算',
+    scenario: 'ECサイトの注文処理システムを作成している。商品の単価と注文数が与えられるとき、合計金額を出力するプログラムを作成せよ。',
+    inputFmt: '1行目に整数 P（単価）、2行目に整数 N（注文数）',
+    outputFmt: 'P × N の値を1行で出力',
+    constraints: '1 ≤ P ≤ 10000、1 ≤ N ≤ 100',
+    sampleIn: '1500\n3',
+    sampleOut: '4500',
+    explanation: `【解説】
+このプログラムで必要な処理は「2つの数を読み込んで掛け算して出力する」だけです。
+
+ステップ1: 入力を受け取る
+　Pythonでは input() で1行のテキストを読み込みます。
+　でも input() は「文字列」として受け取るので、計算するには int() で整数に変換する必要があります。
+
+ステップ2: 計算する
+　掛け算は * を使います。 p * n で単価×数量が求まります。
+
+ステップ3: 出力する
+　print() で結果を表示します。
+
+【よくあるミス】
+　int() に変換し忘れると、「1500」×「3」が「150015001500」のような文字列の繰り返しになってしまいます。`,
+    solutions: {
+      python: `p = int(input())
+n = int(input())
+print(p * n)`,
+      c: `#include <stdio.h>
+int main() {
+    int p, n;
+    scanf("%d", &p);
+    scanf("%d", &n);
+    printf("%d\\n", p * n);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int p = sc.nextInt();
+        int n = sc.nextInt();
+        System.out.println(p * n);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').split('\\n');
+const p = parseInt(lines[0]);
+const n = parseInt(lines[1]);
+console.log(p * n);`
+    }
+  },
+  {
+    id: 2, level: 'beginner',
+    title: '送料無料判定',
+    scenario: 'ECサイトでは5000円以上の注文で送料無料になる。注文合計金額を入力し、送料無料かどうか判定するプログラムを作成せよ。',
+    inputFmt: '整数 X（注文金額）',
+    outputFmt: '5000以上なら「送料無料」、未満なら「送料あり」',
+    constraints: '1 ≤ X ≤ 1000000',
+    sampleIn: '6800',
+    sampleOut: '送料無料',
+    explanation: `【解説】
+条件によって出力を変えるには if 文を使います。
+
+if 文の基本構造:
+　if 条件:
+　    条件が真のときの処理
+　else:
+　    条件が偽のときの処理
+
+「5000以上」は >= 5000 と書きます。
+・>  : より大きい（5000は含まない）
+・>= : 以上（5000を含む）
+この違いに注意してください！
+
+【思考の流れ】
+入力値 x を受け取る → x が 5000 以上かチェック → 結果に応じて文字を出力`,
+    solutions: {
+      python: `x = int(input())
+if x >= 5000:
+    print("送料無料")
+else:
+    print("送料あり")`,
+      c: `#include <stdio.h>
+int main() {
+    int x;
+    scanf("%d", &x);
+    if (x >= 5000) printf("送料無料\\n");
+    else printf("送料あり\\n");
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        System.out.println(x >= 5000 ? "送料無料" : "送料あり");
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').split('\\n');
+const x = parseInt(lines[0]);
+console.log(x >= 5000 ? '送料無料' : '送料あり');`
+    }
+  },
+  {
+    id: 3, level: 'beginner',
+    title: '商品売上の合計',
+    scenario: 'N個の商品の売上金額が与えられる。全商品の売上合計を出力するプログラムを作成せよ。',
+    inputFmt: '1行目に整数 N（商品数）、続くN行に各商品の売上金額（整数）',
+    outputFmt: '合計金額を1行で出力',
+    constraints: '1 ≤ N ≤ 100、各売上 ≤ 100000',
+    sampleIn: '4\n1200\n3500\n800\n2100',
+    sampleOut: '7600',
+    explanation: `【解説】
+N個の数を順番に読み込んで全部足す処理は「累積和」の基本パターンです。
+
+ポイント1: 合計を入れる変数を 0 で用意する
+　total = 0 としてからループを始めます。
+
+ポイント2: for i in range(n) で n 回繰り返す
+　range(n) は 0, 1, 2, ..., n-1 の数列を生成します。
+　ループのたびに input() で1行読み込み、total に足していきます。
+
+ポイント3: += の意味
+　total += x は total = total + x の省略形です。
+
+【処理のイメージ】
+total=0 → +1200 → total=1200 → +3500 → total=4700 → +800 → total=5500 → +2100 → total=7600 → 出力!`,
+    solutions: {
+      python: `n = int(input())
+total = 0
+for i in range(n):
+    total += int(input())
+print(total)`,
+      c: `#include <stdio.h>
+int main() {
+    int n, x, total = 0;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &x);
+        total += x;
+    }
+    printf("%d\\n", total);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), total = 0;
+        for (int i = 0; i < n; i++) total += sc.nextInt();
+        System.out.println(total);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+let total = 0;
+for (let i = 1; i <= n; i++) total += parseInt(lines[i]);
+console.log(total);`
+    }
+  },
+  {
+    id: 4, level: 'middle',
+    title: '最も売れた商品',
+    scenario: 'N個の商品の販売数が与えられる。最も販売数が多い商品の番号（1始まり）と販売数を出力せよ。',
+    inputFmt: '1行目に N、続く N 行に販売数（整数）',
+    outputFmt: '「商品番号 販売数」形式で出力',
+    constraints: '1 ≤ N ≤ 1000、販売数は一意（同率なし）',
+    sampleIn: '5\n120\n350\n89\n510\n240',
+    sampleOut: '4 510',
+    explanation: `【解説】
+「最大値とその位置を見つける」問題です。
+
+アプローチ1（リストを使う）:
+　全データをリスト sales に格納してから、
+　max(sales) で最大値を取得、
+　sales.index(最大値) でその位置（インデックス）を取得します。
+　インデックスは0始まりなので +1 することで商品番号になります。
+
+アプローチ2（都度比較する）:
+　max_val = 0, max_idx = 0 を用意して、
+　ループ中に現在値が max_val より大きければ更新する方法もあります。`,
+    solutions: {
+      python: `n = int(input())
+sales = [int(input()) for _ in range(n)]
+max_val = max(sales)
+idx = sales.index(max_val) + 1
+print(idx, max_val)`,
+      c: `#include <stdio.h>
+int main() {
+    int n; scanf("%d", &n);
+    int sales[1000], max_val = -1, max_idx = 0;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &sales[i]);
+        if (sales[i] > max_val) { max_val = sales[i]; max_idx = i + 1; }
+    }
+    printf("%d %d\\n", max_idx, max_val);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), maxVal = -1, maxIdx = 0;
+        for (int i = 1; i <= n; i++) {
+            int v = sc.nextInt();
+            if (v > maxVal) { maxVal = v; maxIdx = i; }
+        }
+        System.out.println(maxIdx + " " + maxVal);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+let maxVal = -1, maxIdx = 0;
+for (let i = 0; i < n; i++) {
+    const v = parseInt(lines[i+1]);
+    if (v > maxVal) { maxVal = v; maxIdx = i + 1; }
+}
+console.log(maxIdx + ' ' + maxVal);`
+    }
+  },
+  {
+    id: 5, level: 'middle',
+    title: 'クーポン割引後の金額',
+    scenario: 'N個の注文があり、各注文にクーポン割引率（%）が適用される。割引後の金額を切り捨てで求め、合計を出力せよ。',
+    inputFmt: '1行目に N、続く N 行に「金額 割引率」のスペース区切り',
+    outputFmt: '割引後合計金額（整数）を出力',
+    constraints: '1 ≤ N ≤ 100、金額 ≤ 100000、割引率 0〜50',
+    sampleIn: '3\n10000 10\n5000 20\n3000 0',
+    sampleOut: '17000',
+    explanation: `【解説】
+「各行を2つの値に分割して処理する」パターンです。
+
+input().split() を使うと、スペース区切りの入力を分割できます。
+　例: "10000 10".split() → ["10000", "10"]
+
+map(int, ...) を使うと一度にint変換できます。
+　a, b = map(int, input().split())
+
+割引後金額 = 元の金額 × (1 - 割引率/100)
+　10%引きなら × 0.9 になります。
+
+int() で小数点以下切り捨てを行います。
+　Pythonの // 演算子でも整数除算できますが、float経由の場合は int() が確実です。`,
+    solutions: {
+      python: `n = int(input())
+total = 0
+for _ in range(n):
+    a, d = map(int, input().split())
+    total += int(a * (1 - d / 100))
+print(total)`,
+      c: `#include <stdio.h>
+int main() {
+    int n; scanf("%d", &n);
+    long long total = 0;
+    for (int i = 0; i < n; i++) {
+        int a, d; scanf("%d %d", &a, &d);
+        total += (long long)(a * (1.0 - d / 100.0));
+    }
+    printf("%lld\\n", total);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); long total = 0;
+        for (int i = 0; i < n; i++) {
+            int a = sc.nextInt(), d = sc.nextInt();
+            total += (long)(a * (1.0 - d / 100.0));
+        }
+        System.out.println(total);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+let total = 0;
+for (let i = 1; i <= n; i++) {
+    const [a, d] = lines[i].split(' ').map(Number);
+    total += Math.floor(a * (1 - d / 100));
+}
+console.log(total);`
+    }
+  },
+  {
+    id: 6, level: 'middle',
+    title: '在庫アラート',
+    scenario: 'N個の商品の在庫数が与えられる。在庫が10個以下の商品番号（1始まり）を昇順で出力せよ。該当なしなら「なし」と出力。',
+    inputFmt: '1行目に N、続く N 行に在庫数',
+    outputFmt: '該当商品番号を改行区切りで出力、なければ「なし」',
+    constraints: '1 ≤ N ≤ 1000、在庫数 ≥ 0',
+    sampleIn: '5\n25\n8\n0\n15\n3',
+    sampleOut: '2\n3\n5',
+    explanation: `【解説】
+「条件を満たす要素の番号を集める」パターンです。
+
+enumerate() を使うと「インデックスと値」を同時に取れます。
+　for i, v in enumerate(リスト): のように使います。
+
+処理の流れ:
+1. 条件を満たした番号をリスト alerts に追加していく
+2. ループ終了後、alerts が空かどうかで出力を切り替える
+3. if alerts: は「alertsが空でなければ」という意味
+
+【インデックスに注意】
+Pythonのインデックスは0始まりなので、「商品番号」にするには +1 が必要です。`,
+    solutions: {
+      python: `n = int(input())
+alerts = []
+for i in range(n):
+    stock = int(input())
+    if stock <= 10:
+        alerts.append(i + 1)
+if alerts:
+    for a in alerts:
+        print(a)
+else:
+    print("なし")`,
+      c: `#include <stdio.h>
+int main() {
+    int n; scanf("%d", &n);
+    int alerts[100], cnt = 0;
+    for (int i = 1; i <= n; i++) {
+        int s; scanf("%d", &s);
+        if (s <= 10) alerts[cnt++] = i;
+    }
+    if (cnt == 0) printf("なし\\n");
+    else for (int i = 0; i < cnt; i++) printf("%d\\n", alerts[i]);
+    return 0;
+}`,
+      java: `import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Integer> alerts = new ArrayList<>();
+        for (int i = 1; i <= n; i++) if (sc.nextInt() <= 10) alerts.add(i);
+        if (alerts.isEmpty()) System.out.println("なし");
+        else alerts.forEach(System.out::println);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+const alerts = [];
+for (let i = 0; i < n; i++) if (parseInt(lines[i+1]) <= 10) alerts.push(i+1);
+if (alerts.length === 0) console.log('なし');
+else alerts.forEach(a => console.log(a));`
+    }
+  },
+  {
+    id: 7, level: 'regular',
+    title: 'カテゴリ別売上集計',
+    scenario: 'N件の注文データ（カテゴリ名と金額）が与えられる。カテゴリごとの売上合計をカテゴリ名の辞書順で出力せよ。',
+    inputFmt: '1行目に N、続く N 行に「カテゴリ名 金額」スペース区切り',
+    outputFmt: '「カテゴリ名 合計金額」を辞書順で出力',
+    constraints: '1 ≤ N ≤ 1000、カテゴリ名は英小文字',
+    sampleIn: '6\nfood 1200\nbook 3400\nfood 800\ntech 5600\nbook 1100\ntech 2200',
+    sampleOut: 'book 4500\nfood 2000\ntech 7800',
+    explanation: `【解説】
+「辞書（dict）を使った集計」の典型パターンです。
+
+辞書はキーと値のペアを管理するデータ構造です。
+　sales = {} で空の辞書を作成。
+　sales.get(key, 0) は「keyが存在すれば値を返し、なければ0を返す」という安全な取得方法。
+
+sorted(sales) で辞書のキーを辞書順（アルファベット順）に並べられます。
+
+setdefault() や defaultdict(int) を使う方法もあります。`,
+    solutions: {
+      python: `n = int(input())
+sales = {}
+for _ in range(n):
+    cat, amt = input().split()
+    sales[cat] = sales.get(cat, 0) + int(amt)
+for cat in sorted(sales):
+    print(cat, sales[cat])`,
+      c: `#include <stdio.h>
+#include <string.h>
+char cats[10][50]; int amts[10]; int sz = 0;
+int find(char* c) { for(int i=0;i<sz;i++) if(!strcmp(cats[i],c)) return i; return -1; }
+int main(){
+    int n; scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        char c[50]; int a; scanf("%s %d",c,&a);
+        int idx=find(c);
+        if(idx<0){strcpy(cats[sz],c);amts[sz++]=a;}
+        else amts[idx]+=a;
+    }
+    for(int i=0;i<sz-1;i++) for(int j=0;j<sz-1-i;j++)
+        if(strcmp(cats[j],cats[j+1])>0){
+            char tmp[50]; strcpy(tmp,cats[j]); strcpy(cats[j],cats[j+1]); strcpy(cats[j+1],tmp);
+            int t=amts[j]; amts[j]=amts[j+1]; amts[j+1]=t;
+        }
+    for(int i=0;i<sz;i++) printf("%s %d\\n",cats[i],amts[i]);
+    return 0;
+}`,
+      java: `import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map<String,Integer> sales = new TreeMap<>();
+        for (int i = 0; i < n; i++) {
+            String cat = sc.next(); int amt = sc.nextInt();
+            sales.merge(cat, amt, Integer::sum);
+        }
+        sales.forEach((k,v) -> System.out.println(k + " " + v));
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+const sales = {};
+for (let i = 1; i <= n; i++) {
+    const [cat, amt] = lines[i].split(' ');
+    sales[cat] = (sales[cat] || 0) + parseInt(amt);
+}
+Object.keys(sales).sort().forEach(k => console.log(k + ' ' + sales[k]));`
+    }
+  },
+  {
+    id: 8, level: 'regular',
+    title: 'リピート購入者の特定',
+    scenario: 'N件の注文ログ（ユーザーID）が与えられる。2回以上購入したユーザーIDを昇順（数値順）で出力せよ。該当なしなら「なし」。',
+    inputFmt: '1行目に N、続く N 行にユーザーID（整数）',
+    outputFmt: '該当ユーザーIDを改行区切りで昇順出力',
+    constraints: '1 ≤ N ≤ 10000',
+    sampleIn: '7\n101\n205\n101\n308\n205\n101\n407',
+    sampleOut: '101\n205',
+    explanation: `【解説】
+「出現回数を数えて条件でフィルタリングする」パターンです。
+
+collections.Counter を使うと、要素の出現回数を簡単に数えられます。
+　Counter([101, 205, 101, 308, 205, 101]) → Counter({101: 3, 205: 2, 308: 1})
+
+cnt.items() で (キー, カウント) のペアを順番に取り出せます。
+2以上のIDだけを抽出してsorted()で昇順に並べます。`,
+    solutions: {
+      python: `from collections import Counter
+n = int(input())
+ids = [int(input()) for _ in range(n)]
+cnt = Counter(ids)
+result = sorted([uid for uid, c in cnt.items() if c >= 2])
+if result:
+    for r in result: print(r)
+else:
+    print("なし")`,
+      c: `#include <stdio.h>
+#include <stdlib.h>
+int cmp(const void*a,const void*b){return *(int*)a-*(int*)b;}
+int main(){
+    int n; scanf("%d",&n);
+    int ids[1000]; for(int i=0;i<n;i++) scanf("%d",&ids[i]);
+    qsort(ids,n,sizeof(int),cmp);
+    int found=0;
+    for(int i=0;i<n;){
+        int j=i,c=0; while(j<n&&ids[j]==ids[i]){j++;c++;}
+        if(c>=2){printf("%d\\n",ids[i]);found=1;}
+        i=j;
+    }
+    if(!found) printf("なし\\n");
+    return 0;
+}`,
+      java: `import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map<Integer,Integer> cnt = new TreeMap<>();
+        for (int i=0;i<n;i++) cnt.merge(sc.nextInt(),1,Integer::sum);
+        boolean found = false;
+        for (var e : cnt.entrySet()) if (e.getValue()>=2){System.out.println(e.getKey());found=true;}
+        if (!found) System.out.println("なし");
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+const cnt = {};
+for (let i = 1; i <= n; i++) { const id = lines[i].trim(); cnt[id] = (cnt[id]||0)+1; }
+const result = Object.keys(cnt).filter(k=>cnt[k]>=2).map(Number).sort((a,b)=>a-b);
+if (result.length===0) console.log('なし');
+else result.forEach(r=>console.log(r));`
+    }
+  },
+  {
+    id: 9, level: 'veteran',
+    title: '最適な梱包',
+    scenario: '商品はS(1kg)、M(3kg)、L(7kg)の箱に梱包できる。N kgの荷物を最少の箱数で梱包するとき、各サイズの使用数を出力せよ（貪欲法）。',
+    inputFmt: '整数 N（kg）',
+    outputFmt: '「L M S」の順で使用箱数をスペース区切り',
+    constraints: '1 ≤ N ≤ 10000',
+    sampleIn: '25',
+    sampleOut: '3 1 1',
+    explanation: `【解説】
+「貪欲法（Greedy Algorithm）」の典型問題です。
+
+貪欲法とは: 各ステップで「今その時点での最善の選択」をし続けるアルゴリズムです。
+この問題では「大きい箱から優先的に使う」戦略が最少箱数につながります。
+
+L箱(7kg): N // 7 でL箱の最大数、N %= 7 で余り
+M箱(3kg): 余り // 3 でM箱の数、余り %= 3 でさらに余り
+S箱(1kg): 残りがそのままS箱の数
+
+// は整数の商（切り捨て除算）、% は余りです。`,
+    solutions: {
+      python: `n = int(input())
+l = n // 7; n %= 7
+m = n // 3; n %= 3
+s = n
+print(l, m, s)`,
+      c: `#include <stdio.h>
+int main(){
+    int n; scanf("%d",&n);
+    int l=n/7; n%=7;
+    int m=n/3; n%=3;
+    printf("%d %d %d\\n",l,m,n);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int l=n/7; n%=7; int m=n/3; n%=3;
+        System.out.println(l+" "+m+" "+n);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+let n = parseInt(lines[0]);
+const l = Math.floor(n/7); n%=7;
+const m = Math.floor(n/3); n%=3;
+console.log(l+' '+m+' '+n);`
+    }
+  },
+  {
+    id: 10, level: 'veteran',
+    title: '売上ランキングの変動',
+    scenario: '先月と今月のN商品の売上ランキング（1位〜N位）が与えられる。今月のランキングが先月より3位以上上昇した商品番号（1始まり）を昇順で出力せよ。該当なしなら「なし」。',
+    inputFmt: '1行目にN、2行目にN個の先月ランキング（スペース区切り）、3行目に今月ランキング',
+    outputFmt: '条件を満たす商品番号を改行区切りで出力',
+    constraints: '1 ≤ N ≤ 1000',
+    sampleIn: '5\n5 3 1 4 2\n1 2 5 3 4',
+    sampleOut: '1',
+    explanation: `【解説】
+「2つのリストを比較してインデックスで条件判定する」パターンです。
+
+ランキングは「数値が小さい = 上位」なので、
+「上昇」= 先月の順位 - 今月の順位 ≥ 3
+
+例: 先月5位 → 今月1位 → 5-1=4 ≥ 3 → 上昇！
+
+list(map(int, input().split())) でスペース区切りの整数リストを一度に作れます。
+
+for i in range(n) でインデックスを使ってlastとthisの同じ商品を比較します。`,
+    solutions: {
+      python: `n = int(input())
+last = list(map(int, input().split()))
+this = list(map(int, input().split()))
+result = [i+1 for i in range(n) if last[i]-this[i] >= 3]
+if result:
+    for r in sorted(result): print(r)
+else:
+    print("なし")`,
+      c: `#include <stdio.h>
+int main(){
+    int n; scanf("%d",&n);
+    int last[1000],this_[1000];
+    for(int i=0;i<n;i++) scanf("%d",&last[i]);
+    for(int i=0;i<n;i++) scanf("%d",&this_[i]);
+    int found=0;
+    for(int i=0;i<n;i++) if(last[i]-this_[i]>=3){printf("%d\\n",i+1);found=1;}
+    if(!found) printf("なし\\n");
+    return 0;
+}`,
+      java: `import java.util.*;
+public class Main {
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] last=new int[n],now=new int[n];
+        for(int i=0;i<n;i++) last[i]=sc.nextInt();
+        for(int i=0;i<n;i++) now[i]=sc.nextInt();
+        boolean found=false;
+        for(int i=0;i<n;i++) if(last[i]-now[i]>=3){System.out.println(i+1);found=true;}
+        if(!found) System.out.println("なし");
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+const last = lines[1].split(' ').map(Number);
+const cur = lines[2].split(' ').map(Number);
+const result = [];
+for (let i = 0; i < n; i++) if (last[i]-cur[i] >= 3) result.push(i+1);
+if (result.length===0) console.log('なし');
+else result.sort((a,b)=>a-b).forEach(r=>console.log(r));`
+    }
+  }
+];
+
+/* ─── STATE ─────────────────────────────────────── */
+const state = {
+  currentScreen: 0,
+  currentProblemId: 1
+};
+
+/* ─── SCREEN MANAGEMENT ─────────────────────────── */
+function showScreen(n) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('screen' + n).classList.add('active');
+  state.currentScreen = n;
+  if (n === 2) renderLevelCards();
+  if (n === 3) renderProblemScreen();
+  window.scrollTo(0, 0);
+}
+
+function goToProblem(problemId) {
+  state.currentProblemId = problemId;
+  showScreen(3);
+}
+
+/* ─── TUTORIAL TABS ─────────────────────────────── */
+function showTutorialTab(idx, el) {
+  document.querySelectorAll('.tutorial-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-nav-item').forEach(function(i) { i.classList.remove('active'); });
+  document.getElementById('tab' + idx).classList.add('active');
+  el.classList.add('active');
+}
+
+/* ─── COPY CODE ─────────────────────────────────── */
+function copyCode(btn) {
+  var block = btn.closest('.code-block-wrap, .lang-code-wrap').querySelector('.code-block, .lang-code-block');
+  var text = block.innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ コピー済み';
+    setTimeout(function() { btn.textContent = 'コピー'; }, 1500);
+  });
+}
+
+/* ─── LEVEL CARDS (Screen 2) ─────────────────────── */
+function getLevelProblems(levelId) {
+  return PROBLEMS.filter(function(p) { return p.level === levelId; });
+}
+
+function renderLevelCards() {
+  var html = '';
+  LEVELS.forEach(function(lv) {
+    var problems = getLevelProblems(lv.id);
+    html += '<div class="level-card">';
+    html += '<div class="level-card-header">';
+    html += '<div class="level-badge">' + lv.label + ' <span class="level-count">' + problems.length + '問</span></div>';
+    html += '</div>';
+    html += '<div class="level-problems">';
+    problems.forEach(function(p) {
+      html += '<div class="problem-row" onclick="goToProblem(' + p.id + ')">';
+      html += '<span class="problem-row-num">問題' + p.id + '</span>';
+      html += '<span class="problem-row-title">' + p.title + '</span>';
+      html += '<span style="color:var(--gray-400);font-size:0.8rem;">›</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '<div class="level-card-footer">';
+    html += '<button class="btn-primary" onclick="goToProblem(' + problems[0].id + ')">挑戦する →</button>';
+    html += '</div>';
+    html += '</div>';
+  });
+  document.getElementById('levelCards').innerHTML = html;
+}
+
+/* ─── PROBLEM SIDEBAR ────────────────────────────── */
+function renderProblemSidebar() {
+  var html = '';
+  LEVELS.forEach(function(lv) {
+    var problems = getLevelProblems(lv.id);
+    html += '<div class="ps-level-section">';
+    html += '<div class="ps-level-label">' + lv.label + '</div>';
+    problems.forEach(function(p) {
+      var activeCls = p.id === state.currentProblemId ? ' active' : '';
+      html += '<div class="ps-problem-item' + activeCls + '" onclick="goToProblem(' + p.id + ')">';
+      html += '<span class="ps-icon"></span>';
+      html += '問' + p.id + '. ' + p.title;
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('problemSidebar').innerHTML = html;
+}
+
+/* ─── LANGUAGE TABS ──────────────────────────────── */
+function switchLang(problemId, lang) {
+  var langs = ['python', 'c', 'java', 'js'];
+  langs.forEach(function(l) {
+    var btn = document.getElementById('ltab-btn-' + problemId + '-' + l);
+    var content = document.getElementById('ltab-' + problemId + '-' + l);
+    if (btn) btn.classList.toggle('active', l === lang);
+    if (content) content.classList.toggle('active', l === lang);
+  });
+}
+
+function buildLangTabs(p) {
+  var langLabels = { python: 'Python', c: 'C言語', java: 'Java', js: 'JavaScript' };
+  var langIcons = { python: '🐍', c: '⚙️', java: '☕', js: '🟨' };
+  var html = '<div class="lang-editor-wrap">';
+  html += '<div class="lang-tabs">';
+  ['python', 'c', 'java', 'js'].forEach(function(l, i) {
+    html += '<button class="lang-tab-btn' + (i === 0 ? ' active' : '') + '" id="ltab-btn-' + p.id + '-' + l + '" onclick="switchLang(' + p.id + ',\'' + l + '\')">' + langIcons[l] + ' ' + langLabels[l] + '</button>';
+  });
+  html += '</div>';
+  ['python', 'c', 'java', 'js'].forEach(function(l, i) {
+    var code = p.solutions[l].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    html += '<div class="lang-tab-content' + (i === 0 ? ' active' : '') + '" id="ltab-' + p.id + '-' + l + '">';
+    html += '<div class="lang-code-wrap">';
+    html += '<div class="lang-code-header"><span>' + langIcons[l] + ' ' + langLabels[l] + '</span><button class="copy-btn" onclick="copyCode(this)">コピー</button></div>';
+    html += '<div class="lang-code-block">' + code + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+/* ─── PROBLEM MAIN ────────────────────────────────── */
+function renderProblemScreen() {
+  renderProblemSidebar();
+
+  var p = PROBLEMS.find(function(x) { return x.id === state.currentProblemId; });
+  if (!p) return;
+  var lv = LEVELS.find(function(l) { return l.id === p.level; });
+
+  var prevId = p.id > 1 ? p.id - 1 : null;
+  var nextId = p.id < PROBLEMS.length ? p.id + 1 : null;
+
+  var sampleInDisplay = p.sampleIn.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  var sampleOutDisplay = p.sampleOut.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  var explanationDisplay = p.explanation.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  var html = '';
+
+  html += '<div class="problem-progress-bar-wrap">';
+  html += '<div class="progress-meta"><span class="progress-meta-left">' + lv.label + ' — 問題 ' + p.id + '</span><span class="progress-meta-right">問題 ' + p.id + ' / ' + PROBLEMS.length + '</span></div>';
+  html += '<div class="progress-bar-track"><div class="progress-bar-fill" style="width:' + Math.round(p.id / PROBLEMS.length * 100) + '%"></div></div>';
+  html += '</div>';
+
+  html += '<div class="problem-card">';
+  html += '<div class="problem-card-header">';
+  html += '<div class="problem-level-tag">' + lv.label + '</div>';
+  html += '<div class="problem-card-title">問題' + p.id + ': ' + p.title + '</div>';
+  html += '</div>';
+  html += '<div class="problem-body">';
+  html += '<div class="problem-section"><div class="section-label">シナリオ</div><p class="problem-text">' + p.scenario + '</p></div>';
+  html += '<div class="problem-section"><div class="section-label">入力形式</div><p class="problem-text">' + p.inputFmt + '</p></div>';
+  html += '<div class="problem-section"><div class="section-label">出力形式</div><p class="problem-text">' + p.outputFmt + '</p></div>';
+  html += '<div class="problem-section"><div class="section-label">制約</div><p class="problem-text">' + p.constraints + '</p></div>';
+  html += '<div class="problem-section">';
+  html += '<div class="section-label">サンプル</div>';
+  html += '<div class="sample-pair">';
+  html += '<div><div style="font-size:0.75rem;font-weight:600;color:var(--gray-600);margin-bottom:0.3rem;">入力</div><div class="sample-box">' + sampleInDisplay + '</div></div>';
+  html += '<div><div style="font-size:0.75rem;font-weight:600;color:var(--gray-600);margin-bottom:0.3rem;">出力</div><div class="sample-box">' + sampleOutDisplay + '</div></div>';
+  html += '</div></div>';
+  html += '</div></div>';
+
+  // Paiza button
+  html += '<div style="text-align:center;padding:0.5rem 0;">';
+  html += '<a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-solve-btn">💻 Paiza.io でコードを書く</a>';
+  html += '</div>';
+
+  // Explanation accordion
+  html += '<div class="toggle-section">';
+  html += '<div class="toggle-header" onclick="toggleSection(\'exp' + p.id + '\', this)">';
+  html += '<h3>💡 解説を見る</h3><span class="toggle-arrow" id="arrow-exp' + p.id + '">▼</span>';
+  html += '</div>';
+  html += '<div class="toggle-body" id="exp' + p.id + '">';
+  html += '<p class="explanation-text">' + explanationDisplay + '</p>';
+  html += '</div>';
+  html += '</div>';
+
+  // Solution tabs accordion
+  html += '<div class="toggle-section">';
+  html += '<div class="toggle-header" onclick="toggleSection(\'sol' + p.id + '\', this)">';
+  html += '<h3>📝 模範解答を見る（4言語）</h3><span class="toggle-arrow" id="arrow-sol' + p.id + '">▼</span>';
+  html += '</div>';
+  html += '<div class="toggle-body" id="sol' + p.id + '">';
+  html += buildLangTabs(p);
+  html += '</div>';
+  html += '</div>';
+
+  // Nav
+  html += '<div class="problem-nav-row">';
+  if (prevId) {
+    html += '<button class="btn-secondary" onclick="goToProblem(' + prevId + ')">← 前の問題</button>';
+  } else {
+    html += '<span></span>';
+  }
+  if (nextId) {
+    html += '<button class="btn-primary" onclick="goToProblem(' + nextId + ')">次の問題へ →</button>';
+  } else {
+    html += '<button class="btn-primary" onclick="showScreen(2)">📋 問題一覧に戻る</button>';
+  }
+  html += '</div>';
+
+  document.getElementById('problemMain').innerHTML = html;
+}
+
+/* ─── TOGGLE SECTIONS ────────────────────────────── */
+function toggleSection(id, headerEl) {
+  var body = document.getElementById(id);
+  var arrowEl = document.getElementById('arrow-' + id);
+  if (!body) return;
+  var isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (arrowEl) arrowEl.classList.toggle('open', !isOpen);
+}
+
+/* ─── INIT ───────────────────────────────────────── */
+showScreen(0);
+</script>
+</body>
+</html>
