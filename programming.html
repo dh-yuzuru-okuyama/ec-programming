@@ -1010,6 +1010,9 @@ button:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
       <div class="sidebar-nav-item" onclick="showTutorialTab(3, this)">
         <span class="item-num">4</span> for文
       </div>
+      <div class="sidebar-nav-item" onclick="showTutorialTab(4, this)">
+        <span class="item-num">5</span> リスト
+      </div>
     </aside>
 
     <div class="tutorial-content">
@@ -1084,7 +1087,13 @@ discounted = <span class="kw">int</span>(total * <span class="num">0.9</span>)
 items = <span class="num">17</span>
 boxes = items // <span class="num">5</span>
 rest  = items  % <span class="num">5</span>
-<span class="fn">print</span>(boxes, rest)</div>
+<span class="fn">print</span>(boxes, rest)
+
+<span class="cm"># += の使い方（total = total + x の省略形）</span>
+total = <span class="num">0</span>
+total += <span class="num">1200</span>   <span class="cm"># → 1,200円</span>
+total += <span class="num">3500</span>   <span class="cm"># → 4,700円</span>
+<span class="fn">print</span>(total)</div>
         </div>
         <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
         <div class="example-section">
@@ -1097,7 +1106,8 @@ rest  = items  % <span class="num">5</span>
               <div class="example-label">期待される出力</div>
               <div class="example-block output-example-block">4500
 4050
-3 2</div>
+3 2
+4700</div>
             </div>
           </div>
           <div class="guide-tip">💡 price や quantity、items の数値を変えて試してみよう！</div>
@@ -1194,6 +1204,64 @@ total = <span class="num">0</span>
         </div>
         <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
       </div>
+
+      <!-- TAB 4: リスト -->
+      <div class="tutorial-tab" id="tab4">
+        <div class="tab-eyebrow">基礎 05</div>
+        <h2 class="tab-title">リスト</h2>
+        <p class="tab-desc">リストは複数の値をひとまとめに管理できるデータ構造です。ECサイトでは商品一覧や注文履歴など、複数のデータを扱う場面で必須の知識です。</p>
+        <div class="info-box">
+          リストは <strong>[ ]</strong> で作成し、各要素は <strong>0始まりのインデックス</strong> でアクセスします。<br>
+          <strong>append()</strong> で末尾に追加、<strong>len()</strong> で要素数を取得できます。
+        </div>
+        <div class="code-block-wrap">
+          <div class="code-block-header">
+            <span>Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+          </div>
+          <div class="code-block"><span class="cm"># リストの基本</span>
+prices = [<span class="num">1200</span>, <span class="num">3500</span>, <span class="num">800</span>, <span class="num">2100</span>]  <span class="cm"># リストを作成</span>
+
+<span class="fn">print</span>(prices[<span class="num">0</span>])   <span class="cm"># 先頭の要素: 1200</span>
+<span class="fn">print</span>(prices[<span class="num">2</span>])   <span class="cm"># 3番目の要素: 800</span>
+<span class="fn">print</span>(<span class="kw">len</span>(prices)) <span class="cm"># 要素数: 4</span>
+
+<span class="cm"># 要素を追加する</span>
+prices.<span class="fn">append</span>(<span class="num">500</span>)
+<span class="fn">print</span>(prices)      <span class="cm"># [1200, 3500, 800, 2100, 500]</span>
+
+<span class="cm"># for文でリスト全体を処理</span>
+total = <span class="num">0</span>
+<span class="kw">for</span> p <span class="kw">in</span> prices:
+    total += p
+<span class="fn">print</span>(<span class="str">"合計:"</span>, total)  <span class="cm"># 合計: 8100</span>
+
+<span class="cm"># リストの最大値・最小値</span>
+<span class="fn">print</span>(<span class="kw">max</span>(prices))  <span class="cm"># 3500</span>
+<span class="fn">print</span>(<span class="kw">min</span>(prices))  <span class="cm"># 500</span></div>
+        </div>
+        <div class="guide-text">🚀 上のコードをエディタにコピーして、例を実行してみよう！</div>
+        <div class="example-section">
+          <div class="example-row">
+            <div class="example-col">
+              <div class="example-label">入力例</div>
+              <div class="example-block input-example-block">（入力なし）</div>
+            </div>
+            <div class="example-col">
+              <div class="example-label">期待される出力</div>
+              <div class="example-block output-example-block">1200
+800
+4
+[1200, 3500, 800, 2100, 500]
+合計: 8100
+3500
+500</div>
+            </div>
+          </div>
+          <div class="guide-tip">💡 prices リストの中身を変えたり、要素を追加して試してみよう！</div>
+        </div>
+        <a href="https://paiza.io/ja/projects/new" target="_blank" class="paiza-link-btn">🌐 Paiza.io で試す</a>
+      </div>
     </div>
   </div>
 </div>
@@ -1273,8 +1341,13 @@ const PROBLEMS = [
 【よくあるミス】
 　int() に変換し忘れると、「1500」×「3」が「150015001500」のような文字列の繰り返しになってしまいます。`,
     solutions: {
-      python: `p = int(input())
+      python: `# 単価を読み込む
+p = int(input())
+
+# 注文数を読み込む
 n = int(input())
+
+# 単価 × 注文数 = 合計金額を出力
 print(p * n)`,
       c: `#include <stdio.h>
 int main() {
@@ -1325,7 +1398,10 @@ if 文の基本構造:
 【思考の流れ】
 入力値 x を受け取る → x が 5000 以上かチェック → 結果に応じて文字を出力`,
     solutions: {
-      python: `x = int(input())
+      python: `# 注文金額を読み込む
+x = int(input())
+
+# 5000円以上なら送料無料、未満なら送料あり
 if x >= 5000:
     print("送料無料")
 else:
@@ -1376,10 +1452,17 @@ N個の数を順番に読み込んで全部足す処理は「累積和」の基�
 【処理のイメージ】
 total=0 → +1200 → total=1200 → +3500 → total=4700 → +800 → total=5500 → +2100 → total=7600 → 出力!`,
     solutions: {
-      python: `n = int(input())
+      python: `# 商品数を読み込む
+n = int(input())
+
+# 合計金額を入れる変数（最初は0）
 total = 0
+
+# n回繰り返して各商品の売上を足していく
 for i in range(n):
-    total += int(input())
+    sales = int(input())  # 1行読み込む
+    total += sales        # 合計に加算（total = total + sales と同じ）
+
 print(total)`,
       c: `#include <stdio.h>
 int main() {
@@ -1410,62 +1493,75 @@ console.log(total);`
   },
   {
     id: 4, level: 'middle',
-    title: '最も売れた商品',
-    scenario: 'N個の商品の販売数が与えられる。最も販売数が多い商品の番号（1始まり）と販売数を出力せよ。',
-    inputFmt: '1行目に N、続く N 行に販売数（整数）',
-    outputFmt: '「商品番号 販売数」形式で出力',
-    constraints: '1 ≤ N ≤ 1000、販売数は一意（同率なし）',
-    sampleIn: '5\n120\n350\n89\n510\n240',
-    sampleOut: '4 510',
+    title: '商品リストの平均価格',
+    scenario: 'ECサイトの商品ページに「このカテゴリの平均価格」を表示したい。N個の商品価格が与えられるとき、平均価格を小数点以下切り捨てで出力するプログラムを作成せよ。',
+    inputFmt: '1行目に整数 N（商品数）、続く N 行に各商品の価格（整数）',
+    outputFmt: '平均価格（小数点以下切り捨て）を1行で出力',
+    constraints: '1 ≤ N ≤ 100、各価格 ≤ 100000',
+    sampleIn: '4\n1200\n3600\n800\n2400',
+    sampleOut: '2000',
     explanation: `【解説】
-「最大値とその位置を見つける」問題です。
+「リストに全データを入れてから計算する」パターンです。
 
-アプローチ1（リストを使う）:
-　全データをリスト sales に格納してから、
-　max(sales) で最大値を取得、
-　sales.index(最大値) でその位置（インデックス）を取得します。
-　インデックスは0始まりなので +1 することで商品番号になります。
+ステップ1: リストに価格を集める
+　n 回ループして、読み込んだ価格を prices リストに append() で追加します。
 
-アプローチ2（都度比較する）:
-　max_val = 0, max_idx = 0 を用意して、
-　ループ中に現在値が max_val より大きければ更新する方法もあります。`,
+ステップ2: 合計を求める
+　sum(prices) でリストの全要素の合計を一度に求められます。
+　（for文で足し合わせても同じ結果になります）
+
+ステップ3: 平均を計算して切り捨て
+　平均 = 合計 ÷ 要素数 なので sum(prices) / len(prices) です。
+　小数点以下を切り捨てるには int() を使います。
+
+【サンプルのトレース】
+　prices = [1200, 3600, 800, 2400]
+　sum(prices) = 8000
+　len(prices) = 4
+　8000 / 4 = 2000.0 → int(2000.0) = 2000
+　出力: 2000`,
     solutions: {
-      python: `n = int(input())
-sales = [int(input()) for _ in range(n)]
-max_val = max(sales)
-idx = sales.index(max_val) + 1
-print(idx, max_val)`,
+      python: `# 商品数を読み込む
+n = int(input())
+
+# 価格をリストに追加していく
+prices = []
+for i in range(n):
+    price = int(input())
+    prices.append(price)  # リストの末尾に追加
+
+# 合計を計算（sum()はリストの全要素を足してくれる）
+total = sum(prices)
+
+# 平均を計算して小数点以下切り捨て
+average = int(total / len(prices))
+
+print(average)`,
       c: `#include <stdio.h>
 int main() {
     int n; scanf("%d", &n);
-    int sales[1000], max_val = -1, max_idx = 0;
+    int total = 0;
     for (int i = 0; i < n; i++) {
-        scanf("%d", &sales[i]);
-        if (sales[i] > max_val) { max_val = sales[i]; max_idx = i + 1; }
+        int p; scanf("%d", &p);
+        total += p;
     }
-    printf("%d %d\\n", max_idx, max_val);
+    printf("%d\\n", total / n);
     return 0;
 }`,
       java: `import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), maxVal = -1, maxIdx = 0;
-        for (int i = 1; i <= n; i++) {
-            int v = sc.nextInt();
-            if (v > maxVal) { maxVal = v; maxIdx = i; }
-        }
-        System.out.println(maxIdx + " " + maxVal);
+        int n = sc.nextInt(), total = 0;
+        for (int i = 0; i < n; i++) total += sc.nextInt();
+        System.out.println(total / n);
     }
 }`,
       js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
 const n = parseInt(lines[0]);
-let maxVal = -1, maxIdx = 0;
-for (let i = 0; i < n; i++) {
-    const v = parseInt(lines[i+1]);
-    if (v > maxVal) { maxVal = v; maxIdx = i + 1; }
-}
-console.log(maxIdx + ' ' + maxVal);`
+let total = 0;
+for (let i = 1; i <= n; i++) total += parseInt(lines[i]);
+console.log(Math.floor(total / n));`
     }
   },
   {
@@ -1476,7 +1572,7 @@ console.log(maxIdx + ' ' + maxVal);`
     outputFmt: '割引後合計金額（整数）を出力',
     constraints: '1 ≤ N ≤ 100、金額 ≤ 100000、割引率 0〜50',
     sampleIn: '3\n10000 10\n5000 20\n3000 0',
-    sampleOut: '17000',
+    sampleOut: '16000',
     explanation: `【解説】
 「各行を2つの値に分割して処理する」パターンです。
 
@@ -1492,11 +1588,22 @@ map(int, ...) を使うと一度にint変換できます。
 int() で小数点以下切り捨てを行います。
 　Pythonの // 演算子でも整数除算できますが、float経由の場合は int() が確実です。`,
     solutions: {
-      python: `n = int(input())
+      python: `# 注文数を読み込む
+n = int(input())
+
+# 合計を入れる変数
 total = 0
-for _ in range(n):
-    a, d = map(int, input().split())
-    total += int(a * (1 - d / 100))
+
+for i in range(n):
+    # 1行を「金額」と「割引率」に分割して読み込む
+    line = input().split()   # ["10000", "10"] のように分割される
+    a = int(line[0])         # 金額
+    d = int(line[1])         # 割引率（%）
+
+    # 割引後金額 = 金額 × (1 - 割引率/100)、小数点以下切り捨て
+    discounted = int(a * (1 - d / 100))
+    total += discounted
+
 print(total)`,
       c: `#include <stdio.h>
 int main() {
@@ -1554,15 +1661,22 @@ enumerate() を使うと「インデックスと値」を同時に取れます�
 【インデックスに注意】
 Pythonのインデックスは0始まりなので、「商品番号」にするには +1 が必要です。`,
     solutions: {
-      python: `n = int(input())
+      python: `# 商品数を読み込む
+n = int(input())
+
+# 在庫10個以下の商品番号を入れるリスト
 alerts = []
+
 for i in range(n):
-    stock = int(input())
+    stock = int(input())   # 在庫数を読み込む
+
     if stock <= 10:
-        alerts.append(i + 1)
-if alerts:
-    for a in alerts:
-        print(a)
+        alerts.append(i + 1)  # 商品番号は1始まりなので+1して追加
+
+# 該当する商品があれば出力、なければ「なし」
+if len(alerts) > 0:
+    for num in alerts:
+        print(num)
 else:
     print("なし")`,
       c: `#include <stdio.h>
@@ -1598,6 +1712,80 @@ else alerts.forEach(a => console.log(a));`
   },
   {
     id: 7, level: 'regular',
+    title: '最も売れた商品',
+    scenario: 'N個の商品の販売数が与えられる。最も販売数が多い商品の番号（1始まり）と販売数を出力せよ。',
+    inputFmt: '1行目に N、続く N 行に販売数（整数）',
+    outputFmt: '「商品番号 販売数」形式で出力',
+    constraints: '1 ≤ N ≤ 1000、販売数は一意（同率なし）',
+    sampleIn: '5\n120\n350\n89\n510\n240',
+    sampleOut: '4 510',
+    explanation: `【解説】
+「リストに全データを格納してから最大値とその位置を調べる」問題です。
+
+ステップ1: リストに全データを格納
+　リスト内包表記 [int(input()) for _ in range(n)] を使うと、
+　n行の入力を一度にリストとして読み込めます。
+　（for文で append() していくのと同じ結果です）
+
+ステップ2: max() で最大値を取得
+　max(sales) はリストの中の最大値を返します。
+
+ステップ3: index() で位置を取得
+　sales.index(最大値) はその値が何番目にあるかを返します（0始まり）。
+　商品番号（1始まり）にするには +1 します。
+
+【リスト内包表記について】
+　[式 for 変数 in イテラブル] の形で書きます。
+　_ は「使わない変数」を表す慣習的な書き方です。
+　例: [int(input()) for _ in range(3)] → 3行読んでリストに変換`,
+    solutions: {
+      python: `# 商品数を読み込む
+n = int(input())
+
+# n行の販売数をまとめてリストに読み込む（リスト内包表記）
+sales = [int(input()) for _ in range(n)]
+
+# リストの中の最大値を取得
+max_val = max(sales)
+
+# 最大値が何番目にあるかを取得（0始まり → +1 で商品番号に）
+idx = sales.index(max_val) + 1
+
+print(idx, max_val)`,
+      c: `#include <stdio.h>
+int main() {
+    int n; scanf("%d", &n);
+    int sales[1000], max_val = -1, max_idx = 0;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &sales[i]);
+        if (sales[i] > max_val) { max_val = sales[i]; max_idx = i + 1; }
+    }
+    printf("%d %d\\n", max_idx, max_val);
+    return 0;
+}`,
+      java: `import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), maxVal = -1, maxIdx = 0;
+        for (int i = 1; i <= n; i++) {
+            int v = sc.nextInt();
+            if (v > maxVal) { maxVal = v; maxIdx = i; }
+        }
+        System.out.println(maxIdx + " " + maxVal);
+    }
+}`,
+      js: `const lines = require('fs').readFileSync('/dev/stdin','utf8').trim().split('\\n');
+const n = parseInt(lines[0]);
+const sales = [];
+for (let i = 1; i <= n; i++) sales.push(parseInt(lines[i]));
+const maxVal = Math.max(...sales);
+const maxIdx = sales.indexOf(maxVal) + 1;
+console.log(maxIdx + ' ' + maxVal);`
+    }
+  },
+  {
+    id: 8, level: 'regular',
     title: 'カテゴリ別売上集計',
     scenario: 'N件の注文データ（カテゴリ名と金額）が与えられる。カテゴリごとの売上合計をカテゴリ名の辞書順で出力せよ。',
     inputFmt: '1行目に N、続く N 行に「カテゴリ名 金額」スペース区切り',
@@ -1616,11 +1804,24 @@ sorted(sales) で辞書のキーを辞書順（アルファベット順）に並
 
 setdefault() や defaultdict(int) を使う方法もあります。`,
     solutions: {
-      python: `n = int(input())
-sales = {}
-for _ in range(n):
-    cat, amt = input().split()
-    sales[cat] = sales.get(cat, 0) + int(amt)
+      python: `# 注文数を読み込む
+n = int(input())
+
+# カテゴリごとの売上を記録する辞書
+sales = {}  # 例: {"food": 2000, "book": 4500}
+
+for i in range(n):
+    line = input().split()
+    category = line[0]       # カテゴリ名
+    amount = int(line[1])    # 金額
+
+    # そのカテゴリが辞書にあれば加算、なければ新たに登録
+    if category in sales:
+        sales[category] += amount
+    else:
+        sales[category] = amount
+
+# キーを辞書順（アルファベット順）に並べて出力
 for cat in sorted(sales):
     print(cat, sales[cat])`,
       c: `#include <stdio.h>
@@ -1667,7 +1868,7 @@ Object.keys(sales).sort().forEach(k => console.log(k + ' ' + sales[k]));`
     }
   },
   {
-    id: 8, level: 'regular',
+    id: 9, level: 'regular',
     title: 'リピート購入者の特定',
     scenario: 'N件の注文ログ（ユーザーID）が与えられる。2回以上購入したユーザーIDを昇順（数値順）で出力せよ。該当なしなら「なし」。',
     inputFmt: '1行目に N、続く N 行にユーザーID（整数）',
@@ -1684,13 +1885,32 @@ collections.Counter を使うと、要素の出現回数を簡単に数えられ
 cnt.items() で (キー, カウント) のペアを順番に取り出せます。
 2以上のIDだけを抽出してsorted()で昇順に並べます。`,
     solutions: {
-      python: `from collections import Counter
+      python: `# 注文数を読み込む
 n = int(input())
-ids = [int(input()) for _ in range(n)]
-cnt = Counter(ids)
-result = sorted([uid for uid, c in cnt.items() if c >= 2])
-if result:
-    for r in result: print(r)
+
+# ユーザーIDごとの購入回数を記録する辞書
+count = {}  # 例: {101: 3, 205: 2, 308: 1}
+
+for i in range(n):
+    user_id = int(input())
+
+    # そのIDが辞書にあれば+1、なければ1として登録
+    if user_id in count:
+        count[user_id] += 1
+    else:
+        count[user_id] = 1
+
+# 2回以上購入したIDを集めて昇順に並べる
+result = []
+for user_id in count:
+    if count[user_id] >= 2:
+        result.append(user_id)
+result.sort()  # 昇順に並べる
+
+# 出力
+if len(result) > 0:
+    for r in result:
+        print(r)
 else:
     print("なし")`,
       c: `#include <stdio.h>
@@ -1731,7 +1951,7 @@ else result.forEach(r=>console.log(r));`
     }
   },
   {
-    id: 9, level: 'veteran',
+    id: 10, level: 'veteran',
     title: '最適な梱包',
     scenario: '商品はS(1kg)、M(3kg)、L(7kg)の箱に梱包できる。N kgの荷物を最少の箱数で梱包するとき、各サイズの使用数を出力せよ（貪欲法）。',
     inputFmt: '整数 N（kg）',
@@ -1751,10 +1971,20 @@ S箱(1kg): 残りがそのままS箱の数
 
 // は整数の商（切り捨て除算）、% は余りです。`,
     solutions: {
-      python: `n = int(input())
-l = n // 7; n %= 7
-m = n // 3; n %= 3
+      python: `# 荷物の重さを読み込む
+n = int(input())
+
+# L箱（7kg）を最大限使う
+l = n // 7   # L箱の個数（7で割った商）
+n = n % 7    # L箱に入れた後の余り
+
+# 残りにM箱（3kg）を最大限使う
+m = n // 3   # M箱の個数
+n = n % 3    # M箱に入れた後の余り
+
+# 残りはS箱（1kg）で対応
 s = n
+
 print(l, m, s)`,
       c: `#include <stdio.h>
 int main(){
@@ -1781,7 +2011,7 @@ console.log(l+' '+m+' '+n);`
     }
   },
   {
-    id: 10, level: 'veteran',
+    id: 11, level: 'veteran',
     title: '売上ランキングの変動',
     scenario: '先月と今月のN商品の売上ランキング（1位〜N位）が与えられる。今月のランキングが先月より3位以上上昇した商品番号（1始まり）を昇順で出力せよ。該当なしなら「なし」。',
     inputFmt: '1行目にN、2行目にN個の先月ランキング（スペース区切り）、3行目に今月ランキング',
@@ -1801,12 +2031,27 @@ list(map(int, input().split())) でスペース区切りの整数リストを一
 
 for i in range(n) でインデックスを使ってlastとthisの同じ商品を比較します。`,
     solutions: {
-      python: `n = int(input())
-last = list(map(int, input().split()))
-this = list(map(int, input().split()))
-result = [i+1 for i in range(n) if last[i]-this[i] >= 3]
-if result:
-    for r in sorted(result): print(r)
+      python: `# 商品数を読み込む
+n = int(input())
+
+# 先月のランキングをリストで読み込む（スペース区切り→整数リスト）
+last_rank = list(map(int, input().split()))
+
+# 今月のランキングをリストで読み込む
+this_rank = list(map(int, input().split()))
+
+# 3位以上上昇した商品番号を集める
+result = []
+for i in range(n):
+    # ランキングは数値が小さいほど上位なので、先月 - 今月 が上昇幅
+    rise = last_rank[i] - this_rank[i]
+    if rise >= 3:
+        result.append(i + 1)  # 商品番号は1始まり
+
+# 出力
+if len(result) > 0:
+    for r in sorted(result):
+        print(r)
 else:
     print("なし")`,
       c: `#include <stdio.h>
